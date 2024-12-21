@@ -90,7 +90,7 @@ class TicketController extends Controller
      *     )
      * )
      */
-    public function index(GetAllTicketsAction $action):JsonResponse
+    public function index(GetAllTicketsAction $action): JsonResponse
     {
         $tickets = $action->execute();
         return $this->response('Tickets listados com sucesso', 200, TicketResource::collection($tickets));
@@ -125,7 +125,7 @@ class TicketController extends Controller
      *     )
      * )
      */
-    public function store(StoreTicketRequest $request, StoreTicketAction $action):JsonResponse
+    public function store(StoreTicketRequest $request, StoreTicketAction $action): JsonResponse
     {
         try {
             $ticket = $action->execute($request);
@@ -165,7 +165,7 @@ class TicketController extends Controller
      *     )
      * )
      */
-    public function show(string $tickedId, GetTicketByIdAction $action):JsonResponse
+    public function show(string $tickedId, GetTicketByIdAction $action): JsonResponse
     {
         $ticket = $action->execute($tickedId);
         if ($ticket) {
@@ -213,7 +213,7 @@ class TicketController extends Controller
      *     )
      * )
      */
-    public function update(UpdateTicketRequest $request, string $ticketId, UpdateTicketByIdAction $action):JsonResponse
+    public function update(UpdateTicketRequest $request, string $ticketId, UpdateTicketByIdAction $action): JsonResponse
     {
         try {
             $ticket = $action->execute($request, $ticketId);
@@ -255,17 +255,16 @@ class TicketController extends Controller
      *     )
      * )
      */
-    public function destroy(string $ticketId, DeleteTicketAction $action):JsonResponse
+    public function destroy(string $ticketId, DeleteTicketAction $action): JsonResponse
     {
         try {
             $action->execute($ticketId);
             Log::info('Ticket deletado com sucesso', ['ticket_id' => $ticketId]);
-            return $this->response('Ticket deletado com sucesso', 204);
+            return $this->response('', 204);
         } catch (\DomainException $e) {
             Log::error("Erro ao deletar um Ticket" . $e->getMessage(), ['code' => $e->getCode()]);
             return $this->error($e->getMessage(), $e->getCode());
         }
-
     }
 
 }

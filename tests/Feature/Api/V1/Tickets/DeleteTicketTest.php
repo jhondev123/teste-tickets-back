@@ -11,12 +11,7 @@ class DeleteTicketTest extends ApiTestCase
     {
         $ticket = Ticket::factory()->create();
         $response = $this->delete(route('tickets.destroy', ['ticket' => $ticket->id]));
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
-            "message",
-            "status",
-            "data"
-        ]);
+        $response->assertStatus(204);
     }
 
     public function test_delete_ticket_not_found()
