@@ -1,0 +1,14 @@
+.deploy
+.github
+tests
+docker
+.env.testing
+.gitignore
+README.md
+captain-definition
+package.json
+package-lock.json
+phpunit.xml
+.editorconfig
+.phpunit.result.cache
+.idea
