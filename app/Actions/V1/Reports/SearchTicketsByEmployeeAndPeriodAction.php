@@ -5,6 +5,12 @@ namespace App\Actions\V1\Reports;
 use App\Http\Requests\Api\V1\Reports\SearchTicketsRequest;
 use App\Models\Ticket;
 
+/**
+ * Class SearchTicketsByEmployeeAndPeriodAction
+ * @package App\Actions\V1\Reports
+ * Busca tickets por funcionário e período
+ *
+ */
 readonly class SearchTicketsByEmployeeAndPeriodAction
 {
     public function __construct(private Ticket $ticket)

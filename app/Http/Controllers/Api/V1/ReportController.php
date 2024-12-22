@@ -101,10 +101,12 @@ class ReportController extends Controller
         SearchTicketsRequest                   $request
     ): JsonResponse
     {
-
         $tickets = $action->execute($request);
-
-        return $this->response("Pesquisa de Tickets", "200", TicketResource::collection($tickets));
+        return $this->response(
+            "Pesquisa de Tickets",
+            "200",
+            TicketResource::collection($tickets),
+        );
 
     }
 
