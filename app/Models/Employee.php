@@ -11,7 +11,7 @@ class Employee extends Model
     /** @use HasFactory<\Database\Factories\EmployeeFactory> */
     use HasFactory, SoftDeletes;
     protected $fillable = ['name', 'cpf', 'situation'];
-    public function tickets()
+    public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Ticket::class);
     }

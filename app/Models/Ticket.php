@@ -12,7 +12,7 @@ class Ticket extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['employee_id', 'quantity', 'situation'];
     protected $hidden = ['delivery_date'];
-    public function employee()
+    public function employee(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }
