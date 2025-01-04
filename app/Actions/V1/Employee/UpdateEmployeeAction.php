@@ -47,7 +47,7 @@ readonly class UpdateEmployeeAction
             if ($this->verifyCpfAlreadyExists(Cpf::unformat($request->cpf))) {
                 throw new \DomainException('CPF already exists', 422);
             }
-            $data['cpf'] = $request->cpf;
+            $data['cpf'] = Cpf::unformat($request->cpf);
         }
         return $data;
     }
