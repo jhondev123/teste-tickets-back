@@ -15,11 +15,11 @@
 - Eu desenvolvi em formato de API o backend, para que possa ser consumido por qualquer aplicação frontend
 ### Endpoints
 - Employee
-  - GET /employee - Lista todos os funcionários
-  - GET /employee/id - Lista um funcionário específico
-  - POST /employee - Cria um funcionário
-  - PUT /employee/id - Atualiza um funcionário
-  - DELETE /employee/id - Deleta um funcionário
+  - GET /employees - Lista todos os funcionários
+  - GET /employees/id - Lista um funcionário específico
+  - POST /employees - Cria um funcionário
+  - PUT /employees/id - Atualiza um funcionário
+  - DELETE /employees/id - Deleta um funcionário
 - Ticket
   - GET /tickets - Lista todos os tickets
   - GET /tickets/id - Lista um ticket específico
@@ -30,6 +30,9 @@
   - GET /reports/tickets/by/employee/period - Gera um relatório de tickets
   - POST /reports/tickets/generate - Gera um relatório de tickets em PDF
 
+### Produção
+- A API está em produção, acessível pela url <https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/api/v1/>
+- A documentação Swagger <http://teste-tickets-api.projetos.jhonattancurtarelli.com.br/api/documentation>
 
 ## Arquitetura do Backend
 
