@@ -270,7 +270,7 @@ class EmployeeController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Erro ao editar o funcionário', ['error' => $e->getMessage()]);
-            return $this->error('Erro ao editar o funcionário', 400);
+            return $this->error('Erro ao editar o funcionário ' . $e->getMessage(), 400);
         }
 
     }
