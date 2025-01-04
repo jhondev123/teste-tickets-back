@@ -6,13 +6,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Utils\Cpf;
+
+/**
+ * Class EmployeeResource
+ * @package App\Http\Resources\V1
+ * Classe responsável por formatar os dados de um funcionário para serem exibidos na API
+ */
 class EmployeeResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+
     public function toArray(Request $request): array
     {
         $situations = ["A" => "Ativo", "I" => "Inativo"];

@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
+/**
+ * Trait HttpResponse
+ * @package App\Traits
+ * Trait responsável por padronizar as respostas da API
+ */
 trait HttpResponse
 {
     public function response(

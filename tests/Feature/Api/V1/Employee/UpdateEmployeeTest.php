@@ -61,6 +61,29 @@ class UpdateEmployeeTest extends ApiTestCase
 
     }
 
+    public function test_update_employee_cpf_is_equals_stored()
+    {
+        $employee = Employee::factory()->create([
+            'cpf' => '490.778.680-89'
+        ]);
+        $response = $this->put(route('employees.update', ['employee' => $employee->id]), [
+            'cpf' => $employee->cpf
+        ]);
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'cpf',
+                'created_at',
+                'updated_at',
+            ],
+            'status',
+            'message',
+        ]);
+
+    }
+
     public function test_update_employee_with_situation_unavaliable()
     {
         $employee = Employee::factory()->create();
@@ -74,7 +97,5 @@ class UpdateEmployeeTest extends ApiTestCase
                 'situation',
             ],
         ]);
-
     }
-
 }

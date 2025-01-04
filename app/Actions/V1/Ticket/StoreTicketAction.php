@@ -6,6 +6,11 @@ use App\Enums\TicketSituation;
 use App\Http\Requests\Api\V1\Ticket\StoreTicketRequest;
 use App\Models\Ticket;
 
+/**
+ * Class StoreTicketAction
+ * @package App\Actions\V1\Ticket
+ * Classe responsável por cadastrar um novo ticket
+ */
 class StoreTicketAction
 {
     public function __construct(private readonly Ticket $ticket)
@@ -16,7 +21,7 @@ class StoreTicketAction
     /**
      * @param StoreTicketRequest $request
      * @return Ticket
-     * Cadastra um novo ticket pegando os dados da requisição já validados
+     * Método responsável por cadastrar um novo ticket
      *
      */
     public function execute(StoreTicketRequest $request): Ticket

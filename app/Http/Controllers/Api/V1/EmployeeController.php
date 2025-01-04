@@ -72,6 +72,12 @@ use OpenApi\Annotations as OA;
  *  )
  * )
  */
+
+/**
+ * Class EmployeeController
+ * @package App\Http\Controllers\Api\V1
+ * Controller responsável por gerenciar os funcionários
+ */
 class EmployeeController extends Controller
 {
     use HttpResponse;
@@ -90,6 +96,11 @@ class EmployeeController extends Controller
      *         )
      *     )
      * )
+     */
+    /**
+     * @param GetAllEmployeesAction $action
+     * @return JsonResponse
+     * Método responsável por buscar todos os funcionários
      */
     public function index(GetAllEmployeesAction $action): JsonResponse
     {
@@ -128,6 +139,12 @@ class EmployeeController extends Controller
      *         )
      *     )
      * )
+     */
+    /**
+     * @param StoreEmployeeRequest $request
+     * @param StoreEmployeeAction $action
+     * @return JsonResponse
+     * Método responsável por cadastrar um novo funcionário
      */
     public function store(StoreEmployeeRequest $request, StoreEmployeeAction $action): JsonResponse
     {
@@ -173,6 +190,12 @@ class EmployeeController extends Controller
      *         )
      *     )
      * )
+     */
+    /**
+     * @param string $employee_id
+     * @param GetEmployeeByIdAction $action
+     * @return JsonResponse
+     * Método responsável por buscar um funcionário pelo código
      */
     public function show(string $employee_id, GetEmployeeByIdAction $action): JsonResponse
     {
@@ -221,11 +244,18 @@ class EmployeeController extends Controller
      *     )
      * )
      */
+    /**
+     * @param UpdateEmployeeRequest $request
+     * @param Employee $employee
+     * @param UpdateEmployeeAction $action
+     * @return JsonResponse
+     * Método responsável por editar um funcionário
+     */
     public function update(
         UpdateEmployeeRequest $request,
         Employee              $employee,
         UpdateEmployeeAction  $action
-    )
+    ): JsonResponse
     {
         try {
             $employee = $action->execute($request, $employee);
@@ -269,6 +299,12 @@ class EmployeeController extends Controller
      *         )
      *     )
      * )
+     */
+    /**
+     * @param string $employeeId
+     * @param DeleteEmployeeAction $action
+     * @return JsonResponse
+     * Método responsável por deletar um funcionário
      */
     public function destroy(string $employeeId, DeleteEmployeeAction $action): JsonResponse
     {

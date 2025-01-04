@@ -5,6 +5,11 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
+/**
+ * Class Cpf
+ * @package App\Rules
+ * Classe responsável por executar a validação de CPF
+ */
 class Cpf implements ValidationRule
 {
     /**

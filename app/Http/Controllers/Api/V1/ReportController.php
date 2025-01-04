@@ -39,6 +39,12 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
+
+/**
+ * Class ReportController
+ * @package App\Http\Controllers\Api\V1
+ * Classe responsável por gerar relatórios
+ */
 class ReportController extends Controller
 {
     use HttpResponse;
@@ -95,6 +101,12 @@ class ReportController extends Controller
      *         )
      *     )
      * )
+     */
+    /**
+     * @param SearchTicketsByEmployeeAndPeriodAction $action
+     * @param SearchTicketsRequest $request
+     * @return JsonResponse
+     * Método responsável por buscar tickets por funcionário e período
      */
     public function searchTicketsByEmployeeAndPeriod(
         SearchTicketsByEmployeeAndPeriodAction $action,
@@ -165,15 +177,22 @@ class ReportController extends Controller
      *     )
      * )
      */
+    /**
+     * @param SearchTicketsRequest $request
+     * @param GenerateReportTicketsAction $action
+     * @return \Illuminate\Http\Response|JsonResponse
+     * Método responsável por gerar o relatório de tickets
+     */
     public function generateReportSearchTickets(
         SearchTicketsRequest        $request,
         GenerateReportTicketsAction $action
     ): \Illuminate\Http\Response|JsonResponse
     {
         try {
-
-            return ($action->execute($request))->download();
-
+            $pdf = $action->execute($request);
+            return response($pdf->stream())
+                ->header('Content-Type', 'application/pdf')
+                ->header('Content-Disposition', 'attachment; filename=tickets.pdf');
 
         } catch (\Exception $e) {
             return $this->error("Erro ao gerar relatório", "400", ['message' => $e->getMessage()]);

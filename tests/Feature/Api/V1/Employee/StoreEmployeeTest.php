@@ -2,6 +2,7 @@
 
 namespace Api\V1\Employee;
 
+use App\Enums\EmployeeSituation;
 use App\Models\Employee;
 use Tests\ApiTestCase;
 
@@ -36,7 +37,7 @@ class StoreEmployeeTest extends ApiTestCase
         ]);
     }
 
-    public function test_store_employee_with_cpf_without_pontution():void
+    public function test_store_employee_with_cpf_without_pontution(): void
     {
         $response = $this->post(route('employees.store'), [
             'name' => 'John Doe',
@@ -64,7 +65,7 @@ class StoreEmployeeTest extends ApiTestCase
         ]);
     }
 
-    public function test_store_employee_without_situation():void
+    public function test_store_employee_without_situation(): void
     {
         $response = $this->post(route('employees.store'), [
             'name' => 'John Doe',
@@ -77,14 +78,44 @@ class StoreEmployeeTest extends ApiTestCase
         ]);
     }
 
-    public function test_store_employee_with_cpf_alredy_exists()
+    public function test_store_employee_without_situation_and_situation_is_active(): void
+    {
+        $employeeData = [
+            'name' => 'John Doe',
+            'cpf' => '49077868089',
+        ];
+
+        $response = $this->postJson(route('employees.store'), $employeeData);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'message',
+                'data' => [
+                    'id',
+                    'name',
+                    'cpf',
+                    'situation',
+                    'created_at',
+                    'updated_at'
+                ]
+            ]);
+
+        $this->assertDatabaseHas('employees', [
+            'cpf' => $employeeData['cpf'],
+            'name' => $employeeData['name'],
+            'situation' => EmployeeSituation::Active->value
+        ]);
+
+    }
+
+    public function test_store_employee_with_cpf_alredy_exists(): void
     {
         $employee = Employee::factory()->create([
             'cpf' => '490.778.680-89'
         ]);
         $response = $this->post(route('employees.store'), [
             'name' => 'John Doe',
-            'cpf' => '490.778.680-89'
+            $employee->cpf
         ]);
         $response->assertStatus(422);
         $response->assertJsonStructure([

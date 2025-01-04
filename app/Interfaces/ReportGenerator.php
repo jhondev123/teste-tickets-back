@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Interfaces;
-use Barryvdh\DomPDF\PDF;
-
+/**
+ * Interface ReportGenerator
+ * @package App\Interfaces
+ * Interface responsável por gerar relatórios
+ */
 interface ReportGenerator
 {
     public function generate(array $data, string $view, string $fileName): PDF;
