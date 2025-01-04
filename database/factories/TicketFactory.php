@@ -18,7 +18,7 @@ class TicketFactory extends Factory
     {
         return [
             'employee_id' => \App\Models\Employee::factory(),
-            'quantity' => $this->faker->randomNumber(1),
+            'quantity' => $this->faker->numberBetween(1, 100),
             'situation' => $this->faker->randomElement(['A', 'I']),
             'delivery_date' => $this->faker->dateTime(),
 
