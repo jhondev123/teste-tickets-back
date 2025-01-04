@@ -6,7 +6,7 @@ use App\Actions\V1\Report\GenerateReportTicketsAction;
 use App\Actions\V1\Report\SearchTicketsByEmployeeAndPeriodAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Report\SearchTicketsRequest;
-use App\Http\Resources\V1\TicketResource;
+use App\Http\Resources\V1\SearchTicketsResource;
 use App\Traits\HttpResponse;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
@@ -117,7 +117,7 @@ class ReportController extends Controller
         return $this->response(
             "Pesquisa de Tickets",
             "200",
-            TicketResource::collection($tickets),
+            SearchTicketsResource::collection($tickets),
         );
 
     }
