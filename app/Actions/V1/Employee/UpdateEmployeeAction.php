@@ -4,6 +4,7 @@ namespace App\Actions\V1\Employee;
 
 use App\Http\Requests\Api\V1\Employee\UpdateEmployeeRequest;
 use App\Models\Employee;
+use App\Utils\Cpf;
 
 /**
  * Class UpdateEmployeeAction
@@ -42,8 +43,8 @@ readonly class UpdateEmployeeAction
     {
         $data = $request->validated();
         unset($data['cpf']);
-        if ($request->has('cpf') && $request->cpf !== $employee->cpf) {
-            if ($this->verifyCpfAlreadyExists($request->cpf)) {
+        if ($request->has('cpf') && Cpf::unformat($request->cpf) !== $employee->cpf) {
+            if ($this->verifyCpfAlreadyExists(Cpf::unformat($request->cpf))) {
                 throw new \DomainException('CPF already exists', 422);
             }
             $data['cpf'] = $request->cpf;
