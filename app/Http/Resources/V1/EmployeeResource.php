@@ -29,11 +29,11 @@ class EmployeeResource extends JsonResource
                 'total_quantity' => $this->tickets->count(),
                 'total_actives' => $this->tickets->where('situation', 'A')->count(),
                 'total_inactives' => $this->tickets->where('situation', 'I')->count(),
-                'tickets' => $this->tickets->map(function ($ticket) {
+                'tickets' => $this->tickets->map(function ($ticket) use ($situations) {
                     return [
                             'id' => $ticket->id,
                             'quantity' => $ticket->quantity,
-                            'situation' => $ticket->situation,
+                            'situation' => $situations[$ticket->situation],
                             'created_at' => Carbon::parse($ticket->created_at)->format('d/m/Y H:i:s'),
                             'updated_at' => Carbon::parse($ticket->updated_at)->format('d/m/Y H:i:s')
                         ];
