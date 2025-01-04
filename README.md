@@ -9,7 +9,7 @@
 
 ### Porque da escolha da Stack?
 
-- Bem eu trabalho e estou com PHP a alguns anos, então me senti confortável em utilizar ele no backend
+- Eu trabalho com PHP a alguns anos, então me senti confortável em utilizar ele no backend
 
 ## Arquitetura do App
 - Eu desenvolvi em formato de API o backend, para que possa ser consumido por qualquer aplicação frontend
