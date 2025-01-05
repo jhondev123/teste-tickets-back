@@ -21,7 +21,7 @@ class SearchTicketsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'nullable|integer|exists:employees,id',
+            'slug' => 'nullable|string',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
         ];

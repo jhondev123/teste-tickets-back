@@ -4,6 +4,7 @@ namespace App\Actions\V1\Report;
 
 use App\Http\Requests\Api\V1\Report\SearchTicketsRequest;
 use App\Models\Ticket;
+use Carbon\Carbon;
 
 /**
  * Class SearchTicketsByEmployeeAndPeriodAction
@@ -17,22 +18,37 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
     {
 
     }
+
     public function execute(SearchTicketsRequest $request): \Illuminate\Database\Eloquent\Collection
     {
         $query = $this->ticket->newQuery();
 
         if ($request->has('start_date')) {
-            $query->where('created_at', '>=', $request->get('start_date'));
+            $start_date = Carbon::parse($request->get('start_date'))->format('Y-m-d');
+            $query->where('tickets.created_at', '>=', $start_date);
         }
         if ($request->has('end_date')) {
-            $query->where('created_at', '<=', $request->get('end_date'));
+            $end_date = Carbon::parse($request->get('end_date'))->format('Y-m-d');
+            $query->where('tickets.created_at', '<=', $end_date);
         }
 
-
-        if ($request->has('employee_id')) {
-            $query->where('employee_id', $request->get('employee_id'));
+        if($request->has('situation')){
+            $query->where('tickets.situation', mb_strtoupper($request->get('situation')));
         }
-        $query->orderBy('employee_id');
+
+        if ($request->has('slug')) {
+            $slug = $request->get('slug');
+            $query->where(function ($subQuery) use ($slug) {
+                $subQuery->where('tickets.id', 'like', '%' . $slug . '%')
+                    ->orWhere('tickets.employee_id', 'like', '%' . $slug . '%')
+                    ->orWhere('employees.name', 'like', '%' . $slug . '%')
+                    ->orWhere('tickets.quantity', 'like', '%' . $slug . '%');
+            });
+        }
+
+        $query->join('employees', 'employees.id', '=', 'tickets.employee_id');
+        $query->orderBy('tickets.employee_id');
+
         return $query->get();
     }
 }
