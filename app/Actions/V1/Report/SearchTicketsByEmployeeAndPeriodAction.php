@@ -48,7 +48,7 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
 
         $query->join('employees', 'employees.id', '=', 'tickets.employee_id')
             ->select('tickets.*', 'employees.name as employee_name')
-            ->groupBy('tickets.id')
+            ->groupBy('tickets.id', 'employees.name')
             ->orderBy('tickets.employee_id');
 
         return $query->get();
