@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{{config('l5-swagger.documentations.'.$documentation.'.api.title')}}</title>
-    <link rel="stylesheet" type="text/css" href="{{ l5_swagger_asset($documentation, 'swagger-ui.css') }}">
-    <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-32x32.png') }}" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-16x16.png') }}" sizes="16x16"/>
+    <link rel="stylesheet" type="text/css" href="https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/docs/asset/swagger-ui.css?v=0755b7093afdd36d03212b65315f0209">
+    <link rel="icon" type="image/png" href="https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
     <style>
     html
     {
@@ -116,8 +116,8 @@
 <body @if(config('l5-swagger.defaults.ui.display.dark_mode')) id="dark-mode" @endif>
 <div id="swagger-ui"></div>
 
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-bundle.js') }}"></script>
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-standalone-preset.js') }}"></script>
+<script src="https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/docs/asset/swagger-ui-bundle.js?v=6c23777357d2beae9650f9aa035d93fb"></script>
+<script src="https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/docs/asset/swagger-ui-standalone-preset.js?v=6b2892eb9458da5c3224817b3984d14c"></script>
 <script>
     window.onload = function() {
         // Build a system
