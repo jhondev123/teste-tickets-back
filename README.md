@@ -31,8 +31,7 @@
   - POST /reports/tickets/generate - Gera um relatório de tickets em PDF
 
 ### Produção
-- A API está em produção, acessível pela url <https://teste-tickets-api.projetos.jhonattancurtarelli.com.br/api/v1/>
-- A documentação Swagger <http://teste-tickets-api.projetos.jhonattancurtarelli.com.br/api/documentation>
+- A documentação Swagger <https://app.swaggerhub.com/apis-docs/JHONATTANCURTARELLI1/tickets-api/1.0.0>
 
 ## Arquitetura do Backend
 
