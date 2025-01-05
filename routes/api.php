@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/v1')->group(function () {
     Route::apiResource('employees', \App\Http\Controllers\Api\V1\EmployeeController::class);
+    Route::get('employee/search', [\App\Http\Controllers\Api\V1\EmployeeController::class, 'search'])
+        ->name('employee.search');
     Route::apiResource('tickets', \App\Http\Controllers\Api\V1\TicketController::class);
 
     Route::prefix('/reports')->group(function () {

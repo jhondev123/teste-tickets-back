@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api\V1;
 use App\Actions\V1\Employee\DeleteEmployeeAction;
 use App\Actions\V1\Employee\GetAllEmployeesAction;
 use App\Actions\V1\Employee\GetEmployeeByIdAction;
+use App\Actions\V1\Employee\SearchEmployeeAction;
 use App\Actions\V1\Employee\StoreEmployeeAction;
 use App\Actions\V1\Employee\UpdateEmployeeAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Api\V1\Employee\UpdateEmployeeRequest;
+use App\Http\Requests\Api\V1\SearchEmployeeRequest;
 use App\Http\Resources\V1\EmployeeResource;
 use App\Models\Employee;
 use App\Traits\HttpResponse;
@@ -110,6 +112,17 @@ class EmployeeController extends Controller
             200,
             EmployeeResource::collection($employees)
         );
+    }
+
+    public function search(SearchEmployeeRequest $request,SearchEmployeeAction $action): JsonResponse
+    {
+        $employees = $action->execute($request);
+        return $this->response(
+            'Todos os funcionários',
+            200,
+            EmployeeResource::collection($employees)
+        );
+
     }
 
     /**
