@@ -19,12 +19,13 @@ class SearchTicketsResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'employee_id' => $this->employee_id,
             'employee' => $this->employee->name,
             'quantity' => $this->quantity,
             'situation' => $situations[$this->situation],
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
             'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y H:i:s'),
-            'employee_data' => new EmployeeResource($this->employee),
+
         ];
     }
 }

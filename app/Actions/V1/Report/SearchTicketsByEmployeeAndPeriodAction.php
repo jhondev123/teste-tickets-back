@@ -32,8 +32,7 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
         if ($request->has('employee_id')) {
             $query->where('employee_id', $request->get('employee_id'));
         }
-
-        $query->limit(500);
+        $query->orderBy('employee_id');
         return $query->get();
     }
 }
