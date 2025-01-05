@@ -23,20 +23,20 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
     {
         $query = $this->ticket->newQuery();
 
-        if ($request->has('start_date')) {
+        if ($request->has('start_date') && !empty($request->get('start_date'))) {
             $start_date = Carbon::parse($request->get('start_date'))->format('Y-m-d');
             $query->where('tickets.created_at', '>=', $start_date);
         }
-        if ($request->has('end_date')) {
+        if ($request->has('end_date') && !empty($request->get('end_date'))) {
             $end_date = Carbon::parse($request->get('end_date'))->format('Y-m-d');
             $query->where('tickets.created_at', '<=', $end_date);
         }
 
-        if($request->has('situation')){
+        if ($request->has('situation') && !empty($request->get('situation'))) {
             $query->where('tickets.situation', mb_strtoupper($request->get('situation')));
         }
 
-        if ($request->has('slug')) {
+        if ($request->has('slug') && !empty($request->get('slug'))) {
             $slug = $request->get('slug');
             $query->where(function ($subQuery) use ($slug) {
                 $subQuery->where('tickets.id', 'like', '%' . $slug . '%')
@@ -46,8 +46,10 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
             });
         }
 
-        $query->join('employees', 'employees.id', '=', 'tickets.employee_id');
-        $query->orderBy('tickets.employee_id');
+        $query->join('employees', 'employees.id', '=', 'tickets.employee_id')
+            ->select('tickets.*', 'employees.name as employee_name')
+            ->groupBy('tickets.id')
+            ->orderBy('tickets.employee_id');
 
         return $query->get();
     }
