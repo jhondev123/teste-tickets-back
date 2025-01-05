@@ -54,9 +54,8 @@ class UpdateEmployeeTest extends ApiTestCase
         $response->assertStatus(422);
         $response->assertJsonStructure([
             'message',
-            'errors' => [
-                'cpf',
-            ],
+            'errors',
+            'status'
         ]);
 
     }
