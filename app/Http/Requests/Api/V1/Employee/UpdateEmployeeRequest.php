@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Api\V1\Employee;
-
+use App\Utils\Cpf as CpfUtils;
 use Illuminate\Foundation\Http\FormRequest;
 /**
  * Class UpdateEmployeeRequest

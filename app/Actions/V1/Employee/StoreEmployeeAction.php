@@ -33,7 +33,6 @@ readonly class StoreEmployeeAction
      */
     public function execute(StoreEmployeeRequest $request): Employee
     {
-
         $data = $request->validated();
         $data['situation'] = EmployeeSituation::Active->value;
         $data['cpf'] = Cpf::unformat($data['cpf']);
