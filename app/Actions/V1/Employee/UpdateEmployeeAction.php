@@ -43,11 +43,16 @@ readonly class UpdateEmployeeAction
     {
         $data = $request->validated();
         unset($data['cpf']);
-        if ($request->has('cpf') && Cpf::unformat($request->cpf) !== $employee->cpf) {
+        if ($request->has('cpf')) {
+            $cpf = Cpf::unformat($request->cpf);
+            if ($cpf === $employee->cpf) {
+                return $data;
+            }
             if ($this->verifyCpfAlreadyExists(Cpf::unformat($request->cpf))) {
                 throw new \DomainException('CPF already exists', 422);
             }
-            $data['cpf'] = Cpf::unformat($request->cpf);
+            $data['cpf'] = $cpf;
+            return $data;
         }
         return $data;
     }
@@ -57,7 +62,7 @@ readonly class UpdateEmployeeAction
      * @return bool
      * Método responsável por verificar se o CPF já existe em outros funcionários
      */
-    public function verifyCpfAlreadyExists(string $cpf):bool
+    public function verifyCpfAlreadyExists(string $cpf): bool
     {
         $employee = Employee::where('cpf', $cpf)->first();
         if ($employee) {
