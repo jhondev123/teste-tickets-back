@@ -22,6 +22,9 @@ class GetTicketByIdAction
     public function execute(string $ticketId):Ticket|null
     {
        $ticket = $this->ticket->find($ticketId);
+       if($ticket == null){
+           return null;
+       }
        $ticket->load('employee');
          return $ticket;
     }

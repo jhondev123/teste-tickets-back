@@ -23,20 +23,60 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
     {
         $query = $this->ticket->newQuery();
 
-        if ($request->has('start_date') && !empty($request->get('start_date'))) {
-            $start_date = Carbon::parse($request->get('start_date'))->format('Y-m-d');
-            $query->where('tickets.created_at', '>=', $start_date);
-        }
-        if ($request->has('end_date') && !empty($request->get('end_date'))) {
-            $end_date = Carbon::parse($request->get('end_date'))->format('Y-m-d');
-            $query->where('tickets.created_at', '<=', $end_date);
+        $this->applyDateFilters($query, $request);
+        $this->applySituationFilter($query, $request);
+        $this->applySlugFilter($query, $request);
+
+        $this->joinEmployeeTable($query);
+
+        $query->groupBy('tickets.id', 'employees.name')
+            ->orderBy('tickets.employee_id');
+
+        return $query->get();
+    }
+
+    /**
+     * Aplica filtros de data
+     *
+     * @param $query
+     * @param SearchTicketsRequest $request
+     */
+    private function applyDateFilters($query, SearchTicketsRequest $request): void
+    {
+        if ($request->filled('start_date')) {
+            $startDate = Carbon::parse($request->get('start_date'))->format('Y-m-d');
+            $query->where('tickets.created_at', '>=', $startDate);
         }
 
-        if ($request->has('situation') && !empty($request->get('situation'))) {
-            $query->where('tickets.situation', mb_strtoupper($request->get('situation')));
+        if ($request->filled('end_date')) {
+            $endDate = Carbon::parse($request->get('end_date'))->format('Y-m-d');
+            $query->where('tickets.created_at', '<=', $endDate);
         }
+    }
 
-        if ($request->has('slug') && !empty($request->get('slug'))) {
+    /**
+     * @param $query
+     * @param SearchTicketsRequest $request
+     * @return void
+     * Aplica filtro de situação
+     */
+    private function applySituationFilter($query, SearchTicketsRequest $request): void
+    {
+        if ($request->filled('situation')) {
+            $situation = mb_strtoupper($request->get('situation'));
+            $query->where('tickets.situation', $situation);
+        }
+    }
+
+    /**
+     * @param $query
+     * @param SearchTicketsRequest $request
+     * @return void
+     * Aplica filtro de slug
+     */
+    private function applySlugFilter($query, SearchTicketsRequest $request): void
+    {
+        if ($request->filled('slug')) {
             $slug = $request->get('slug');
             $query->where(function ($subQuery) use ($slug) {
                 $subQuery->where('tickets.id', 'like', '%' . $slug . '%')
@@ -45,15 +85,22 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
                     ->orWhere('tickets.quantity', 'like', '%' . $slug . '%');
             });
         }
+    }
 
+    /**
+     * @param $query
+     * @return void
+     * Junta a tabela de funcionários
+     */
+    private function joinEmployeeTable($query): void
+    {
         $query->join('employees', 'employees.id', '=', 'tickets.employee_id')
-            ->selectRaw('tickets.*, employees.name as employee_name,
-            COUNT(tickets.id) OVER() as total,SUM(tickets.quantity) OVER() as total_quantity
-            ')
-            ->groupBy('tickets.id', 'employees.name')
-            ->orderBy('tickets.employee_id');
-
-        return $query->get();
+            ->selectRaw(
+                'tickets.*,
+            employees.name as employee_name,
+            COUNT(tickets.id) OVER() as total,
+            SUM(tickets.quantity) OVER() as total_quantity'
+            );
     }
 
 }

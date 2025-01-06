@@ -55,9 +55,9 @@ class ReportController extends Controller
      *     tags={"Relatórios"},
      *     summary="Busca tickets por funcionário e período",
      *     @OA\Parameter(
-     *         name="employee_id",
+     *         name="slug",
      *         in="query",
-     *         description="ID do funcionário",
+     *         description="Campo de pesquisa genérico",
      *         required=false,
      *         @OA\Schema(type="integer")
      *     ),
@@ -75,6 +75,13 @@ class ReportController extends Controller
      *         required=true,
      *         @OA\Schema(type="string", format="date")
      *     ),
+     *     @OA\Parameter(
+     *     name="situation",
+     *     in="query",
+     *     description="Situação do ticket",
+     *     required=false,
+     *     @OA\Schema(type="string", enum={"A", "I"})
+     *    ),
      *     @OA\Response(
      *         response=200,
      *         description="Lista de tickets encontrados",
@@ -89,7 +96,7 @@ class ReportController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=400,
+     *         response=422,
      *         description="Erro de validação",
      *         @OA\JsonContent(
      *             type="object",
