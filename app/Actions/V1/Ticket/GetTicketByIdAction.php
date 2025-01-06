@@ -21,7 +21,9 @@ class GetTicketByIdAction
      */
     public function execute(string $ticketId):Ticket|null
     {
-        return $this->ticket->find($ticketId);
+       $ticket = $this->ticket->find($ticketId);
+       $ticket->load('employee');
+         return $ticket;
     }
 
 }

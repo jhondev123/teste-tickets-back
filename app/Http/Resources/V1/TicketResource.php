@@ -19,6 +19,7 @@ class TicketResource extends JsonResource
         return [
             'id' => $this->id,
             'employee' => $this->employee->name,
+            'employee_id' => $this->employee->id ?? null,
             'quantity' => $this->quantity,
             'situation' => $situations[$this->situation],
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
