@@ -47,10 +47,13 @@ readonly class SearchTicketsByEmployeeAndPeriodAction
         }
 
         $query->join('employees', 'employees.id', '=', 'tickets.employee_id')
-            ->select('tickets.*', 'employees.name as employee_name')
+            ->selectRaw('tickets.*, employees.name as employee_name,
+            COUNT(tickets.id) OVER() as total,SUM(tickets.quantity) OVER() as total_quantity
+            ')
             ->groupBy('tickets.id', 'employees.name')
             ->orderBy('tickets.employee_id');
 
         return $query->get();
     }
+
 }
