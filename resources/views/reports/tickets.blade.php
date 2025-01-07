@@ -13,6 +13,7 @@
 <body>
 <h1>Relatório de Tickets</h1>
 <p>Total de Tickets: {{count($data)}}</p>
+<p>Total Geral: {{$data[0]['total_quantity']}}</p>
 <table>
     <tr>
         <th>Id</th>
